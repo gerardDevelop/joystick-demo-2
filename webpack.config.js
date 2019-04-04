@@ -9,8 +9,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
+    inline: true,
     contentBase: "./public",
-    port: 80
+    port: 80,
+    host: '0.0.0.0'
   },
   module: {
     rules: [
