@@ -10,7 +10,7 @@ module.exports = {
   },
   devServer: {
     contentBase: "./public",
-    port: 80
+    port: 8080
   },
   module: {
     rules: [
