@@ -13,6 +13,11 @@ class App extends Component {
         this.onTouchEnd = this.onTouchEnd.bind(this);
         this.onTouchMove = this.onTouchMove.bind(this);
         this.onTouchStart = this.onTouchStart.bind(this);
+        this.onResize = this.onResize.bind(this);
+    }
+
+    componentDidMount() {
+      window.onResize = this.onResize;    
     }
 
     getJoystickCenterPos () {
@@ -42,6 +47,10 @@ class App extends Component {
     // check if it is in joystick region
     }
 
+    onResize(e) {
+      
+    }
+
     render () {
         /*
         const oldReturn = (
@@ -54,6 +63,8 @@ class App extends Component {
             />
         );
         */
+
+
 
         return (
             <div className="App">
