@@ -140,7 +140,9 @@ class MainScene extends Phaser.Scene {
     }
 
     update (time, delta) {
-    //console.log("delta: " + delta);
+
+        // update fakeServer
+        window.fakeServer.update(time, delta);
 
         delta /= 1000;
 

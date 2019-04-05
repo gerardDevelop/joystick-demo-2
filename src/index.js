@@ -4,11 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import JoystickManager from './UI/JoystickManager';
+import FakeServer from './Networking/FakeServer/FakeServer';
+import NetworkClient from './Networking/NetworkClient/NetworkClient';
+
+window.fakeServer = new FakeServer();
+window.networkClient = new NetworkClient();
 
 import * as Phaser from 'phaser';
 
 import MainScene from './Phaser/Scenes/MainScene';
+import NetworkClient from './Networking/NetworkClient/NetworkClient';
 
 var config = {
     type: Phaser.WEBGL,
@@ -37,10 +42,13 @@ window.main = main;
 
 window.mainScene = main.scene.keys['MainScene'];
 
+window.onMainFinishedLoading = () => {
+    // attempt connection with networkClient
 
+    window.networkClient.connect();
 
-// set up UI managers first, so react can pull state from them
-window.joystickManager = new JoystickManager();
+    
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -93,6 +101,8 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', e => {
   
   console.log("ON INDEX RESIZE");
+
+  // todo add 'in game' bool to check
   window.onResizeAimArea();
   window.onResizeJoystick();
 });
