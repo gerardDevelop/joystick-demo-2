@@ -38,6 +38,8 @@ window.main = main;
 
 window.mainScene = main.scene.keys['MainScene'];
 
+window.mainScene.scale.startFullscreen();
+
 // set up UI managers first, so react can pull state from them
 window.joystickManager = new JoystickManager();
 window.aimAreaManager = new AimAreaManager();
