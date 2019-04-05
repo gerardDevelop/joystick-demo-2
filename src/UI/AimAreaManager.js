@@ -1,10 +1,10 @@
 export default class AimAreaManager {
     constructor () {
         this.props = {
-            top: window.innerHeight - (25 + 120),
-            left: window.innerWidth - (25 + 120),
-            width: 120,
-            height: 120
+            top: window.innerHeight - (30 + 180),
+            left: window.innerWidth - (30 + 180),
+            width: 180,
+            height: 180
         };
 
         this.props.centerX = this.props.left + this.props.width / 2;

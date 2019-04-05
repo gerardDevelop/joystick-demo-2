@@ -1,8 +1,8 @@
 export default class JoystickManager {
     constructor () {
         this.props = {
-            x: 40,
-            y: window.innerHeight - 75 - 40,
+            x: 70,
+            y: window.innerHeight - 75 - 70,
             w: 75,
             h: 75
         };
