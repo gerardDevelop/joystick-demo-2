@@ -27,7 +27,7 @@ class App extends Component {
 
     onTouchCancel (e) {
         e.stopPropagation();
-        console.log('onTouchCancel');
+        //console.log('onTouchCancel');
     }
 
     onTouchEnd (e) {

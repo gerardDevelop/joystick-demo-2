@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import JoystickManager from './UI/JoystickManager';
-import AimAreaManager from './UI/AimAreaManager';
 
 import * as Phaser from 'phaser';
 
@@ -24,7 +23,7 @@ var config = {
     scene: [MainScene],
     scale: {
         parent: 'phaser-content',
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.RESIZE,
         width: window.innerWidth,
         height: window.innerHeight
     }
@@ -38,13 +37,10 @@ window.main = main;
 
 window.mainScene = main.scene.keys['MainScene'];
 
-mainScene.scale.on('resize', function(gameSize, baseSize, displaySize, resolution) {
-  mainScene.cameras.main.setViewport(0, 0, gameSize.width, gameSize.height);
-});
+
 
 // set up UI managers first, so react can pull state from them
 window.joystickManager = new JoystickManager();
-window.aimAreaManager = new AimAreaManager();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -94,11 +90,9 @@ window.addEventListener('load', function () {
 
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-window.addEventListener('resize', () => {
-    console.log('calling resize');
-
-
-    //window.main.resize(window.innerWidth, window.innerHeight);
-    window.mainScene.resize(window.innerWidth, window.innerHeight);
-    //main.scene.keys["MainScene"].resize(window.innerWidth, window.innerHeight);
+window.addEventListener('resize', e => {
+  
+  console.log("ON INDEX RESIZE");
+  window.onResizeAimArea();
+  window.onResizeJoystick();
 });

@@ -5,16 +5,25 @@ import React, { Component } from 'react';
 export default class Joystick extends Component {
     constructor (props) {
         super(props);
+
+        var x = window.innerWidth * 0.1;
+        var y = window.innerHeight - (window.innerWidth * 0.1 + window.innerWidth * 0.1);
+        var w = window.innerWidth * 0.1;
+        var h = window.innerWidth * 0.1;
+
         this.state = {
             //stickLeft: window.joystickManager.x,
             //stickTop: window.innerHeight - 77.5,
             //stickWidth: 30,
             // stickHeight: 30,
 
-            joyAreaLeft: window.joystickManager.props.x,
-            joyAreaTop: window.joystickManager.props.y,
-            joyAreaWidth: window.joystickManager.props.w,
-            joyAreaHeight: window.joystickManager.props.h
+            joyAreaLeft: x,
+            joyAreaTop: y,
+            joyAreaWidth: w,
+            joyAreaHeight: h,
+            centerX : x + w / 2,
+            centerY : y + h / 2,
+
         };
 
         //this.setJoystickPos = this.setJoystickPos.bind(this);
@@ -24,10 +33,28 @@ export default class Joystick extends Component {
         this.onTouchEnd = this.onTouchEnd.bind(this);
         this.onTouchCancel = this.onTouchCancel.bind(this);
         this.onTouchMove = this.onTouchMove.bind(this);
+        this.onResize = this.onResize.bind(this);
     }
 
     componentDidMount () {
         window.joystick = this;
+        window.onResizeJoystick = this.onResize;
+    }
+
+    onResize() {
+        var x = window.innerWidth * 0.1;
+        var y = window.innerHeight - (window.innerWidth * 0.1 + window.innerWidth * 0.1);
+        var w = window.innerWidth * 0.1;
+        var h = window.innerWidth * 0.1;
+
+        this.setState({
+            joyAreaLeft: x,
+            joyAreaTop: y,
+            joyAreaWidth: w,
+            joyAreaHeight: h,
+            centerX : x + (w / 2),
+            centerY : y + (h / 2)
+        });
     }
 
     onTouchStart (e) {
@@ -40,7 +67,7 @@ export default class Joystick extends Component {
 
             //console.log("area bounds: " + window.joystick.areaBoundsX);
 
-            if (touches[i].pageX < 300) {
+            if (touches[i].pageX < window.innerWidth / 2) {
                 this.onReceiveJoystickTouchCoords(touches[i].pageX, touches[i].pageY);
 
                 // window.joystick.setJoystickPos( touches[i].pageX, touches[i].pageY)
@@ -62,7 +89,7 @@ export default class Joystick extends Component {
         var touches = e.changedTouches;
 
         for (var i = 0; i < touches.length; i++) {
-            if (touches[i].pageX < 300) {
+            if (touches[i].pageX < window.innerWidth / 2) {
                 this.onReceiveJoystickTouchCoords(touches[i].pageX, touches[i].pageY);
             } else {
                 this.stopJoystickMovement();
@@ -78,8 +105,8 @@ export default class Joystick extends Component {
     }
 
     onReceiveJoystickTouchCoords (x, y) {
-        var deltaX = x - window.joystickManager.props.centerX;
-        var deltaY = y - window.joystickManager.props.centerY;
+        var deltaX = x - this.state.centerX;
+        var deltaY = y - this.state.centerY;
 
         // find hypoteneuse
         var dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);

@@ -53,7 +53,7 @@ class MainScene extends Phaser.Scene {
 
         console.log('in mainscene');
     }
-
+    /*
     resize (width, height) {
         if (width === undefined) {
             width = this.sys.game.config.width;
@@ -66,13 +66,18 @@ class MainScene extends Phaser.Scene {
         console.log('resized!');
     //this.cameras.main.setViewport(0, 0, width, height);
     }
-
+    */
     create () {
         this.player = this.add.sprite(
             window.innerWidth / 2,
             window.innerHeight / 2,
             'player'
         );
+
+        this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
+            //console.log("resize called");
+            this.cameras.main.setViewport(0, 0, baseSize.width, baseSize.height);
+        });
 
         /*
       const camera = this.cameras.main;

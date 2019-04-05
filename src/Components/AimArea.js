@@ -4,14 +4,19 @@ export default class AimArea extends Component {
     constructor () {
         super();
 
-        this.state = {
-            areaLeft: window.aimAreaManager.props.left,
-            areaTop: window.aimAreaManager.props.top,
-            areaWidth: window.aimAreaManager.props.width,
-            areaHeight: window.aimAreaManager.props.height,
+        var left = window.innerWidth - (window.innerWidth * 0.05 + window.innerWidth * 0.2);
+        var top = window.innerHeight - (window.innerWidth * 0.05 + window.innerWidth * 0.2);
+        var width = window.innerWidth * 0.2;
+        var height = window.innerWidth * 0.2;
 
-            centerX: window.aimAreaManager.props.centerX,
-            centerY: window.aimAreaManager.props.centerY,
+        this.state = {
+            areaLeft: left,
+            areaTop: top,
+            areaWidth: width,
+            areaHeight: height,
+
+            centerX: left + width / 2,
+            centerY: top + height / 2,
 
             projLeft: 0,
             projRight: 0
@@ -20,6 +25,29 @@ export default class AimArea extends Component {
         this.onTouchEnd = this.onTouchEnd.bind(this);
         this.onTouchMove = this.onTouchMove.bind(this);
         this.onTouchStart = this.onTouchStart.bind(this);
+
+        this.onResize = this.onResize.bind(this);
+    }
+
+    componentDidMount () {
+        window.onResizeAimArea = this.onResize;
+    }
+
+    onResize() {
+        var left = window.innerWidth - (window.innerWidth * 0.05 + window.innerWidth * 0.2);
+        var top = window.innerHeight - (window.innerWidth * 0.05 + window.innerWidth * 0.2);
+        var width = window.innerWidth * 0.2;
+        var height = window.innerWidth * 0.2;
+
+        this.setState({
+            areaLeft: left,
+            areaTop: top,
+            areaWidth: width,
+            areaHeight: height,
+
+            centerX : left + width / 2,
+            centerY : top + height / 2
+        });
     }
 
     onTouchEnd (e) {
