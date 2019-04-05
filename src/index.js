@@ -38,6 +38,10 @@ window.main = main;
 
 window.mainScene = main.scene.keys['MainScene'];
 
+mainScene.scale.on('resize', function(gameSize, baseSize, displaySize, resolution) {
+  mainScene.cameras.main.setViewport(0, 0, gameSize.width, gameSize.height);
+});
+
 // set up UI managers first, so react can pull state from them
 window.joystickManager = new JoystickManager();
 window.aimAreaManager = new AimAreaManager();
@@ -56,10 +60,7 @@ serviceWorker.unregister();
 // One for detecting first touch, determining if the touch is within the bounds of the joystick circle area, and registering its ID as the currentJoystickTouchID
 
 const onTouchStart = e => {
-    e.preventDefault();
-
-    window.mainScene.scale.startFullscreen();
-    
+    e.preventDefault();    
 };
 
 const onTouchMove = e => {
