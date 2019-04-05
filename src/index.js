@@ -93,8 +93,7 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', () => {
     console.log('calling resize');
 
-    
-    
+
     //window.main.resize(window.innerWidth, window.innerHeight);
     window.mainScene.resize(window.innerWidth, window.innerHeight);
     //main.scene.keys["MainScene"].resize(window.innerWidth, window.innerHeight);
